@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Task
+{% endblock title %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{task_form.title}}
+        {{task_form.description}}
+        {{task_form.userId}}
+        <button type="submit">SUBMIT</button>
+    </form>
+    <ol>
+        {% for task in tasks %}
+            <li>{{task.title}}, {{task.userId}}</li>
+        {% endfor %}
+    </ol>
+{% endblock content %}
