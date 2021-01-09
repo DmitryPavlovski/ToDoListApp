@@ -14,7 +14,7 @@
 <body>
     <div class="header">
         <ul class="horizontal">
-            <li><a href="{% url 'index'%}">На стартовую страницу</a></li>
+            <li><a href="{% url 'main'%}">На стартовую страницу</a></li>
             {% if user.is_authenticated %}
             <li><a>Пользователь: {{ user.get_username }}</a></li>
             <li><a class="logout" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
