@@ -7,4 +7,4 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         #fields = "__all__"  # include all fields in form
-        fields=('title', 'description', 'userId')
+        fields=('title', 'description', 'userId', "completed")
