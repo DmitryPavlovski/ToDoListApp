@@ -12,6 +12,17 @@
     </title>
 </head>
 <body>
+    <div class="header">
+        <ul class="horizontal">
+            <li><a href="{% url 'index'%}">На стартовую страницу</a></li>
+            {% if user.is_authenticated %}
+            <li><a>Пользователь: {{ user.get_username }}</a></li>
+            <li><a class="logout" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+            {% endif %} 
+        </ul>
+    </div>
     <div class="container">
         {% block content %}
 
