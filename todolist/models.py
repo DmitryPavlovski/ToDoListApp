@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Task(models.Model):
     """Model class Task object"""
-    userId = models.ForeignKey(User, on_delete=models.CASCADE)
+    userId = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=350)
-    description = models.TextField(verbose_name='Description', null=True)
+    description = models.TextField(verbose_name='Description', blank=True, null=True)
     completed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
