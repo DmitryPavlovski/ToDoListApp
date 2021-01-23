@@ -5,25 +5,39 @@ Task
 {% endblock title %}
 
 {% block content %}
-
-    <form method="post">
-        {% csrf_token %}
-        {{task_form.title}}
-        {{task_form.description}}
-        {{task_form.userId}}
-        <button type="submit">SUBMIT</button>
-    </form>
-    <ol>
-        {% for task in tasks %}
-            <li>
-                {% if task.completed == True %}
-                    <strike>{{task.title}}</strike>
-                {% else %}
-                    {{task.title}}
-                {% endif %}
-            --> {{task.userId}} | <a href="{% url "update_task" task.id %}">Update</a>
-                | <a href="{% url "delete_task" task.id %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ol>
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}            
+            <div class="input-group mb-3">
+                {{task_form.title}}
+                <button type="submit" class="btn btn-primary btn-lg">ADD</button>
+            </div>
+            <div class="input-group mb-3">
+                {{task_form.description}}
+            </div>
+        </form>
+        <h4 class="bg-warning text-light py-2 rounded text-center">My Tasks:</h4>
+        <ul class="list-group tasks">
+            {% for task in tasks %}
+                <li class="list-group-item list-group-item-action" title="{{task.description}}">
+                    {% if task.completed == True %}
+                        <strike>{{task.title}}</strike>
+                    {% else %}
+                        {{task.title}}
+                    {% endif %}
+                    <div class="float-right">
+                        {% if task.completed == True %}
+                        <a href="{% url 'complate_task' task.id %}"><i class="remove mdi mdi-close-circle-outline"></i></a>
+                        {% else %}
+                        <a href="{% url 'complate_task' task.id %}"><i class="fa fa-check"></i></a>
+                        {% endif %}
+                        <a href="{% url 'update_task' task.id %}" ><i class="fa fa-edit"></i></a>
+                        <a href="{% url 'delete_task' task.id %}" ><i class="fa fa-trash-o"></i></a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock content %}

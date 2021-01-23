@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+ 
+{% block title %}Sign up{% endblock %}
+ 
+{% block content %}
+    <h2>Sign up</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+              <div class="form-group">
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+                {% if form.errors.username %}
+                    <td>{{form.errors.username}}</td>
+                {% endif %}
+              </div>
+            </tr>
+            <tr>
+              <div class="form-group">
+                <td>{{ form.email.label_tag }}</td>
+                <td>{{ form.email }}</td>
+                {% if form.errors.email %}
+                    <td>{{form.errors.email}}</td>
+                {% endif %}
+              </div>
+            </tr>
+            <tr>
+                <div class="form-group">
+                  <td>{{ form.password1.label_tag }}</td>
+                  <td>{{ form.password1 }}</td>
+                  {% if form.errors.password1 %}
+                    <td>{{form.errors.password1}}</td>
+                    {% endif %}
+                </div>
+              </tr>
+              <tr>
+                <div class="form-group">
+                  <td>{{ form.password2.label_tag }}</td>
+                  <td>{{ form.password2 }}</td>
+                  {% if form.errors.password2 %}
+                    <td>{{form.errors.password2}}</td>
+                    {% endif %}
+                </div>
+              </tr>
+          </table>
+        <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+{% endblock %}
