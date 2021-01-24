@@ -4,7 +4,7 @@ from .models import Task
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-class TaskForm(forms.ModelForm):
+class CreateTaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields=('title', 'description', "completed", "userId")
@@ -35,9 +35,36 @@ class TaskForm(forms.ModelForm):
         widget=forms.widgets.CheckboxInput(attrs={"class": "text-center"}),
     )
 
-    def __init__(self, *args, **kwargs):
-        super(TaskForm, self).__init__(*args, **kwargs)
-        self.fields['userId'].required = False
+class UpdateTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields=('title', 'description', "completed")
+    
+    title = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-lg",
+                "placeholder": "Enter task...",
+            }
+        ),
+    )
+
+    description = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control form-control-lg",
+                "rows":"3",
+                "cols":"4",
+                "placeholder": "Description..."
+            }
+        ),
+    )
+
+    completed = forms.CharField(
+        required=False,
+        widget=forms.widgets.CheckboxInput(attrs={"class": "text-center"}),
+    )
 
 class RegistrForm(UserCreationForm):
   email = forms.EmailField(max_length=254, help_text='This field is required')

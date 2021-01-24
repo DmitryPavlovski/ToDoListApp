@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.http import Http404
-from .forms import TaskForm, RegistrForm
+from .forms import CreateTaskForm, UpdateTaskForm, RegistrForm
 from .models import Task
 from django.contrib.auth import authenticate, login
 
@@ -22,7 +22,7 @@ def index(request):
         return redirect('main')      
 
 def new(request):
-    form = TaskForm(request.POST)
+    form = CreateTaskForm(request.POST)
     if form.is_valid():
         task = form.save(commit=False)
         task.userId = request.user
@@ -32,7 +32,7 @@ def new(request):
         return HttpResponse(str(form.errors))
 
 def show_index(request):
-    form = TaskForm()
+    form = UpdateTaskForm()
     tasks = Task.objects.filter(userId = request.user).order_by('completed', '-created')
     return render(request, "index.html", {"task_form": form, "tasks": tasks})
 
@@ -48,19 +48,19 @@ def update_task(request, pk):
 def save_updated_task(request, pk):
     task = Task.objects.get(id=pk)
     if task.userId == request.user:
-        form = TaskForm(request.POST)
+        form = UpdateTaskForm(request.POST)
         if form.is_valid():
-            task.completed = form.cleaned_data['completed']
-            task.description = form.cleaned_data['description']
-            task.title = form.cleaned_data['title']
-            task.save()
+            #task.completed = form.cleaned_data['completed']
+            #task.description = form.cleaned_data['description']
+            #task.title = form.cleaned_data['title']
+            form.save()
             return redirect("index")
     else:
         raise Http404("Task not found.")
 
 def show_update_task(request, pk):
     task = Task.objects.get(id=pk)
-    form = TaskForm(instance=task)
+    form = UpdateTaskForm(instance=task)
     
     return render(request, "update_task.html", {"task_edit_form": form})
 
