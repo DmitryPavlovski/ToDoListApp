@@ -10,11 +10,11 @@ Task
         <form method="post">
             {% csrf_token %}            
             <div class="input-group mb-3">
-                {{task_form.title}}
+                {{form.title}}
                 <button type="submit" class="btn btn-primary btn-lg">ADD</button>
             </div>
             <div class="input-group mb-3">
-                {{task_form.description}}
+                {{form.description}}
             </div>
         </form>
         <h4 class="bg-warning text-light py-2 rounded text-center">My Tasks:</h4>
@@ -26,12 +26,14 @@ Task
                     {% else %}
                         {{task.title}}
                     {% endif %}
-                    <div class="float-right">
-                        {% if task.completed == True %}
-                        <a href="{% url 'complate_task' task.id %}"><i class="remove mdi mdi-close-circle-outline"></i></a>
-                        {% else %}
-                        <a href="{% url 'complate_task' task.id %}"><i class="fa fa-check"></i></a>
-                        {% endif %}
+                    <div class="float-right">                        
+                        <a href="{% url 'complete_task' task.id %}">
+                            {% if task.completed == True %}
+                            <i class="remove mdi mdi-close-circle-outline"></i></a>
+                            {% else %}
+                            <i class="fa fa-check"></i>
+                            {% endif %}
+                        </a>
                         <a href="{% url 'update_task' task.id %}" ><i class="fa fa-edit"></i></a>
                         <a href="{% url 'delete_task' task.id %}" ><i class="fa fa-trash-o"></i></a>
                     </div>

@@ -14,12 +14,12 @@
             {% csrf_token %}
             <div class="input-group mb-3">
                 <div class="input-group-text" data-toggle="tooltip" data-placement="bottom" title="Marked as completed">
-                    {{task_edit_form.completed}}
+                    {{form.completed}}
                 </div>
-                {{task_edit_form.title}}
+                {{form.title}}
                 <button type="submit" class="btn btn-lg btn-info">Update</button>
             </div>
-            {{task_edit_form.description}}
+            {{form.description}}
         </form>
     </div>
 </div>
